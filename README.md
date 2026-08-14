@@ -57,13 +57,13 @@ Summary rows such as team totals and opponent totals were excluded so that playe
 
 ---
 
-# Ground Truth
+# Baseline Results
 
 Before asking the LLM any questions, a Python script was used to establish programmatically verified ground-truth statistics.
 
 The script is:
 
-`ground_truth_stats.py`
+`stats.py`
 
 The script calculates descriptive statistics for both datasets and produces an answer key for the questions used during the experiment.
 
@@ -87,40 +87,6 @@ These programmatically calculated values were used to evaluate the LLM responses
 
 ---
 
-# Running the Ground-Truth Analysis
-
-Python 3 is required.
-
-Place the CSV files and Python script in the same directory:
-
-```text
-Task_05_Descriptive_Stats/
-│
-├── README.md
-├── PROMPT_LOG.md
-├── ground_truth_stats.py
-├── games_2025.csv
-└── players_2025.csv
-```
-
-Run the ground-truth analysis using:
-
-```bash
-python ground_truth_stats.py
-```
-
-The script uses only Python standard-library modules:
-
-```text
-csv
-statistics
-collections
-```
-
-Therefore, no third-party Python libraries are required.
-
----
-
 # Phase A — Baseline Factual Questions
 
 Phase A tested whether the LLM could answer relatively straightforward factual and numerical questions using the provided datasets.
@@ -140,7 +106,7 @@ The questions included:
 9. Which game had the highest combined score?
 10. Which player recorded the most draw controls?
 
-The complete prompts, responses, ground-truth answers, and evaluations are documented in `PROMPT_LOG.md`.
+The complete prompts, responses, baseline resuls , and evaluations are documented in `PROMPT_LOG.md`.
 
 ---
 
@@ -194,8 +160,6 @@ These examples show that an LLM may correctly retrieve data and even perform sev
 
 Phase B explored questions that did not necessarily have a single predefined answer.
 
-Instead of asking only factual questions, qualitative concepts were explicitly defined using mathematical formulas so that reproducible ground truth could be established.
-
 ---
 
 ## Offensive Impact Score
@@ -209,7 +173,7 @@ Offensive Impact Score =
 Goals + Assists + (2 × Game-Winning Goals)
 ```
 
-The Python ground-truth calculation identified:
+The Python calculation identified:
 
 **Emma Ward — Offensive Impact Score: 78**
 
@@ -257,7 +221,7 @@ Points
 
 This metric attempts to include offensive production, possession, defensive contribution, important goals, and the negative effect of turnovers.
 
-The Python ground-truth Top 5 was:
+The Python script Top 5 was:
 
 ```text
 1. Joely Caramelli — 85
@@ -283,7 +247,7 @@ This was a ranking and sorting error rather than an error in applying the MVP fo
 
 ---
 
-# Prompt Engineering Experiment
+# Prompt Engineering 
 
 A follow-up prompt explicitly instructed the model to calculate all scores, sort them numerically from highest to lowest, and only then select the Top 5.
 
@@ -431,7 +395,7 @@ An LLM can be useful for explaining data, generating possible interpretations, a
 
 However, it should not replace a reproducible statistical program when numerical accuracy is important.
 
-The ground-truth Python script was essential because it provided an independent answer key against which every LLM response could be checked.
+The Python script was essential because it provided an independent answer key against which every LLM response could be checked.
 
 One of the most interesting observations was that the model could produce responses that appeared detailed and convincing while containing incorrect calculations. In several cases, the model showed correct intermediate values but still produced an incorrect final answer.
 
@@ -457,7 +421,7 @@ Interpretation
 
 Python provides reproducibility and numerical verification, while the LLM is more useful for explanation, exploration, and interpretation.
 
-The main lesson from this experiment is that a confident and well-written LLM response is not necessarily a correct one. Numerical claims should still be independently verified before they are used to support conclusions or decisions.
+The main lesson from this task is that a confident and well-written LLM response is not necessarily a correct one. Numerical claims should still be independently verified before they are used to support conclusions or decisions.
 
 ---
 
@@ -467,35 +431,9 @@ The complete record of the experiment is available in:
 
 **`PROMPT_LOG.md`**
 
-The log contains:
-
-- Model and version used
-- Exact prompts
-- Complete model responses
-- Programmatically calculated ground truth
-- Verdicts
-- Notes explaining errors and observations
-
----
-
-# Repository Structure
-
-```text
-Task_05_Descriptive_Stats/
-│
-├── README.md
-├── PROMPT_LOG.md
-├── ground_truth_stats.py
-├── games_2025.csv
-└── players_2025.csv
-```
-
----
-
 # Dataset Source
 
 The original data was obtained from the official **Syracuse University Athletics 2025 Women's Lacrosse season statistics**.
 
 The original Syracuse Athletics statistics were used as the source for creating the smaller game-level and player-level datasets used in this experiment.
 
-The source data should be obtained from the official Syracuse Athletics source rather than redistributed through this repository.
